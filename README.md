@@ -294,3 +294,4 @@ You're seeing demo mode. Update `googleSheetUrl` in `src/config.ts`.
 ## License
 
 MIT License - Feel free to use for your classroom or coding club!
+# highscore-nitzanim
