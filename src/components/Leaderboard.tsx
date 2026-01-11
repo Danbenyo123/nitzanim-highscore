@@ -1,9 +1,36 @@
+import { useState, useMemo } from 'react';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import { Header } from './Header';
 import { LeaderboardRow } from './LeaderboardRow';
+import type { LeaderboardEntry } from '../types';
 
 export function Leaderboard() {
   const { leaderboard, isLoading, error, lastUpdated, refresh, isDemo } = useLeaderboard();
+  const [viewMode, setViewMode] = useState<'all-time' | 'weekly'>('all-time');
+
+  // Calculate weekly leaderboard (sorted by weeklyScore)
+  const weeklyLeaderboard = useMemo(() => {
+    return [...leaderboard]
+      .sort((a, b) => {
+        if (b.weeklyScore !== a.weeklyScore) return b.weeklyScore - a.weeklyScore;
+        return a.name.localeCompare(b.name);
+      })
+      .map((entry, index) => ({ ...entry, rank: index + 1 }));
+  }, [leaderboard]);
+
+  const displayedLeaderboard: LeaderboardEntry[] = viewMode === 'weekly' ? weeklyLeaderboard : leaderboard;
+
+  // Calculate points to next rank for each entry
+  const getPointsToNextRank = (index: number): number | null => {
+    if (index === 0) return null; // Already #1
+    const currentScore = viewMode === 'weekly'
+      ? displayedLeaderboard[index].weeklyScore
+      : displayedLeaderboard[index].totalScore;
+    const nextScore = viewMode === 'weekly'
+      ? displayedLeaderboard[index - 1].weeklyScore
+      : displayedLeaderboard[index - 1].totalScore;
+    return nextScore - currentScore + 1;
+  };
 
   return (
     <div className="min-h-screen p-4 md:p-8">
@@ -17,6 +44,8 @@ export function Leaderboard() {
           isLoading={isLoading}
           isDemo={isDemo}
           onRefresh={refresh}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
         />
 
         {/* Error state */}
@@ -52,10 +81,16 @@ export function Leaderboard() {
         )}
 
         {/* Leaderboard */}
-        {leaderboard.length > 0 && (
+        {displayedLeaderboard.length > 0 && (
           <div className="space-y-1">
-            {leaderboard.map((entry, index) => (
-              <LeaderboardRow key={entry.name} entry={entry} index={index} />
+            {displayedLeaderboard.map((entry, index) => (
+              <LeaderboardRow
+                key={entry.name}
+                entry={entry}
+                index={index}
+                pointsToNextRank={getPointsToNextRank(index)}
+                isWeeklyView={viewMode === 'weekly'}
+              />
             ))}
           </div>
         )}

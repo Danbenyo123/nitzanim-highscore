@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import confetti from 'canvas-confetti';
 import type { PotentialBadge } from '../types';
 
 interface BadgeDisplayProps {
@@ -8,8 +9,19 @@ interface BadgeDisplayProps {
 export function BadgeDisplay({ badges }: BadgeDisplayProps) {
   const [openTooltip, setOpenTooltip] = useState<string | null>(null);
 
-  const handleBadgeClick = (badgeId: string) => {
-    setOpenTooltip(openTooltip === badgeId ? null : badgeId);
+  const handleBadgeClick = (badge: PotentialBadge) => {
+    const isOpening = openTooltip !== badge.id;
+    setOpenTooltip(isOpening ? badge.id : null);
+
+    // Confetti for earned badges when opening tooltip
+    if (isOpening && badge.earned) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ['#00fff5', '#ff00ff', '#bf00ff'],
+      });
+    }
   };
 
   return (
@@ -18,7 +30,7 @@ export function BadgeDisplay({ badges }: BadgeDisplayProps) {
         <div
           key={badge.id}
           className={`badge ${badge.earned ? 'earned' : 'not-earned'} cursor-pointer relative`}
-          onClick={() => handleBadgeClick(badge.id)}
+          onClick={() => handleBadgeClick(badge)}
         >
           <span className="text-base">{badge.icon}</span>
           <span className={badge.earned ? 'neon-text-cyan' : 'text-gray-500'}>

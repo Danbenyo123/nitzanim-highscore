@@ -5,9 +5,11 @@ interface HeaderProps {
   isLoading: boolean;
   isDemo: boolean;
   onRefresh: () => void;
+  viewMode: 'all-time' | 'weekly';
+  onViewModeChange: (mode: 'all-time' | 'weekly') => void;
 }
 
-export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProps) {
+export function Header({ lastUpdated, isLoading, isDemo, onRefresh, viewMode, onViewModeChange }: HeaderProps) {
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('he-IL', {
       day: 'numeric',
@@ -42,6 +44,30 @@ export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProp
         <div className="h-px w-16 bg-gradient-to-r from-transparent to-[var(--neon-cyan)]" />
         <div className="w-2 h-2 rotate-45 bg-[var(--neon-cyan)] shadow-[0_0_10px_var(--neon-cyan)]" />
         <div className="h-px w-16 bg-gradient-to-l from-transparent to-[var(--neon-cyan)]" />
+      </div>
+
+      {/* View Mode Toggle */}
+      <div className="flex rounded-lg overflow-hidden border border-[var(--neon-cyan)] mb-4">
+        <button
+          onClick={() => onViewModeChange('all-time')}
+          className={`px-4 py-2 text-sm font-medium transition-all ${
+            viewMode === 'all-time'
+              ? 'bg-[var(--neon-cyan)] text-black'
+              : 'bg-transparent text-[var(--neon-cyan)] hover:bg-[rgba(0,255,245,0.1)]'
+          }`}
+        >
+          All Time
+        </button>
+        <button
+          onClick={() => onViewModeChange('weekly')}
+          className={`px-4 py-2 text-sm font-medium transition-all ${
+            viewMode === 'weekly'
+              ? 'bg-[var(--neon-cyan)] text-black'
+              : 'bg-transparent text-[var(--neon-cyan)] hover:bg-[rgba(0,255,245,0.1)]'
+          }`}
+        >
+          This Week
+        </button>
       </div>
 
       {/* Controls */}

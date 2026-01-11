@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import confetti from 'canvas-confetti';
 import type { LeaderboardEntry } from '../types';
 import { config } from '../config';
 import { AnimatedCounter } from './AnimatedCounter';
@@ -7,10 +8,26 @@ import { StudentDetails } from './StudentDetails';
 interface LeaderboardRowProps {
   entry: LeaderboardEntry;
   index: number;
+  pointsToNextRank: number | null;
+  isWeeklyView: boolean;
 }
 
-export function LeaderboardRow({ entry, index }: LeaderboardRowProps) {
+export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }: LeaderboardRowProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const hasShownConfetti = useRef(false);
+
+  // Confetti for #1 when expanded
+  useEffect(() => {
+    if (isExpanded && entry.rank === 1 && !hasShownConfetti.current) {
+      hasShownConfetti.current = true;
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#00fff5', '#ff00ff', '#ffd700'],
+      });
+    }
+  }, [isExpanded, entry.rank]);
 
   const getRankStyle = () => {
     switch (entry.rank) {
@@ -55,9 +72,14 @@ export function LeaderboardRow({ entry, index }: LeaderboardRowProps) {
     return config.avatars[entry.name] || config.defaultAvatar;
   };
 
+  const getRankChangeAnimation = () => {
+    if (entry.rankChange === undefined || entry.rankChange === 0) return '';
+    return entry.rankChange > 0 ? 'animate-rank-up' : 'animate-rank-down';
+  };
+
   return (
     <div
-      className="animate-slide-up"
+      className={`animate-slide-up ${getRankChangeAnimation()}`}
       style={{ animationDelay: `${index * 50}ms` }}
     >
       <div
@@ -118,11 +140,16 @@ export function LeaderboardRow({ entry, index }: LeaderboardRowProps) {
           {/* Score */}
           <div className="text-right">
             <div className="neon-text-cyan cyber-title text-lg sm:text-2xl font-bold">
-              <AnimatedCounter value={entry.totalScore} duration={1500} />
+              <AnimatedCounter value={isWeeklyView ? entry.weeklyScore : entry.totalScore} duration={1500} />
             </div>
             <div className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">
-              points
+              {isWeeklyView ? 'this week' : 'points'}
             </div>
+            {pointsToNextRank !== null && (
+              <div className="text-[10px] sm:text-xs text-yellow-400 mt-1">
+                {pointsToNextRank} pts to next rank
+              </div>
+            )}
           </div>
 
           {/* Expand indicator */}
