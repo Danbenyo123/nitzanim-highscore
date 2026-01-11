@@ -8,7 +8,7 @@ interface StudentDetailsProps {
 }
 
 export function StudentDetails({ entry }: StudentDetailsProps) {
-  const difficulties = [1, 2, 3, 4, 5];
+  const difficulties = [0, 1, 2, 3, 4, 5];
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);

@@ -4,7 +4,7 @@
 export interface ExerciseEntry {
   date: string;      // Format: YYYY-MM-DD or DD/MM/YYYY
   student: string;   // Student name (supports Hebrew)
-  difficulty: number; // 1-5
+  difficulty: number; // 0-5 (0=Tried, 5=Hard)
   notes?: string;    // Optional notes about the exercise
 }
 

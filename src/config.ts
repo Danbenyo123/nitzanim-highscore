@@ -47,6 +47,7 @@ export const config = {
    * Adjust these values to change how exercises are scored
    */
   scoring: {
+    0: 5,    // Tried
     1: 10,   // Easy
     2: 25,   // Medium-Easy
     3: 50,   // Medium
@@ -58,6 +59,7 @@ export const config = {
    * Labels for difficulty levels (displayed in stats)
    */
   difficultyLabels: {
+    0: 'Tried',
     1: 'Easy',
     2: 'Medium-Easy',
     3: 'Medium',

@@ -42,7 +42,7 @@ export function parseCSV(csvText: string): ExerciseEntry[] {
     const date = normalizeDate(row.date);
     const difficulty = parseInt(row.difficulty, 10);
 
-    if (!date || !row.student || isNaN(difficulty) || difficulty < 1 || difficulty > 5) {
+    if (!date || !row.student || isNaN(difficulty) || difficulty < 0 || difficulty > 5) {
       continue;
     }
 
@@ -401,7 +401,7 @@ export function generateDemoData(): ExerciseEntry[] {
       entries.push({
         date: formatDate(date),
         student,
-        difficulty: Math.floor(Math.random() * 5) + 1,
+        difficulty: Math.floor(Math.random() * 6), // 0-5
         notes: Math.random() > 0.7 ? 'practice exercise' : undefined,
       });
     }
