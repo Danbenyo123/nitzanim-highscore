@@ -6,7 +6,7 @@ import type { LeaderboardEntry } from '../types';
 
 export function Leaderboard() {
   const { leaderboard, isLoading, error, lastUpdated, refresh, isDemo } = useLeaderboard();
-  const [viewMode, setViewMode] = useState<'all-time' | 'weekly'>('all-time');
+  const [viewMode, setViewMode] = useState<'all-time' | 'weekly'>('weekly');
 
   // Calculate weekly leaderboard (sorted by weeklyScore)
   const weeklyLeaderboard = useMemo(() => {

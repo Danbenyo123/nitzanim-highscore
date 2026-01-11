@@ -145,11 +145,9 @@ export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }:
             <div className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">
               {isWeeklyView ? 'this week' : 'points'}
             </div>
-            {pointsToNextRank !== null && (
-              <div className="text-[10px] sm:text-xs text-yellow-400 mt-1">
-                {pointsToNextRank} pts to next rank
-              </div>
-            )}
+            <div className={`text-[10px] sm:text-xs mt-1 ${pointsToNextRank !== null ? 'text-yellow-400' : 'invisible'}`}>
+              {pointsToNextRank !== null ? `${pointsToNextRank} pts to next rank` : 'placeholder'}
+            </div>
           </div>
 
           {/* Expand indicator */}
