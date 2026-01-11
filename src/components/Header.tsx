@@ -8,10 +8,11 @@ interface HeaderProps {
 }
 
 export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProps) {
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('he-IL', {
-      hour: '2-digit',
-      minute: '2-digit',
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('he-IL', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
   };
 
@@ -68,7 +69,7 @@ export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProp
 
         {lastUpdated && (
           <span className="text-sm text-gray-500">
-            Last updated: {formatTime(lastUpdated)}
+            Last submission: {formatDate(lastUpdated)}
           </span>
         )}
       </div>

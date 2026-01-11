@@ -84,8 +84,13 @@ export function useLeaderboard(): UseLeaderboardResult {
         isFirstLoad.current = false;
       }
 
+      // Find the most recent submission date from entries
+      const mostRecentDate = entries.reduce((latest, entry) => {
+        return entry.date > latest ? entry.date : latest;
+      }, '');
+
       setLeaderboard(boardWithChanges);
-      setLastUpdated(new Date());
+      setLastUpdated(mostRecentDate ? new Date(mostRecentDate) : null);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load data';
       setError(message);
