@@ -122,11 +122,11 @@ export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }:
           </div>
 
           {/* Student Name */}
-          <div className="flex-1 min-w-0 text-right sm:text-center" dir="rtl">
+          <div className="flex-1 min-w-0 text-right" dir="rtl">
             <h3 className="text-lg sm:text-2xl font-semibold text-white truncate">
               {entry.name}
             </h3>
-            <div className="flex items-center justify-end sm:justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
+            <div className="flex items-center justify-end gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
               <span>{entry.exerciseCount} exercises</span>
               {entry.currentStreak > 0 && (
                 <span className="flex items-center gap-1">
@@ -138,7 +138,7 @@ export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }:
           </div>
 
           {/* Score */}
-          <div className="text-right">
+          <div className="text-right min-w-[70px] sm:min-w-[100px]">
             <div className="neon-text-cyan cyber-title text-lg sm:text-2xl font-bold">
               <AnimatedCounter value={isWeeklyView ? entry.weeklyScore : entry.totalScore} duration={1500} />
             </div>
@@ -146,7 +146,7 @@ export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }:
               {isWeeklyView ? 'this week' : 'points'}
             </div>
             <div className={`text-[10px] sm:text-xs mt-1 ${pointsToNextRank !== null ? 'text-yellow-400' : 'invisible'}`}>
-              {pointsToNextRank !== null ? `${pointsToNextRank} pts to next rank` : 'placeholder'}
+              {pointsToNextRank !== null ? `${pointsToNextRank} pts to next rank` : '0 pts to next rank'}
             </div>
           </div>
 
