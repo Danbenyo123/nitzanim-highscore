@@ -66,10 +66,25 @@ export function LeaderboardRow({ entry, index }: LeaderboardRowProps) {
       >
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Rank */}
-          <div className={`flex items-center justify-center w-8 sm:w-12 ${getRankStyle()}`}>
+          <div className={`flex flex-col items-center justify-center w-8 sm:w-12 ${getRankStyle()}`}>
             <span className="cyber-title text-lg sm:text-2xl font-bold">
               {getRankIcon() || `#${entry.rank}`}
             </span>
+            {entry.rankChange !== undefined && entry.rankChange !== 0 && (
+              <div className={`flex items-center text-xs font-bold ${entry.rankChange > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                {entry.rankChange > 0 ? (
+                  <>
+                    <span>▲</span>
+                    <span>{entry.rankChange}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>▼</span>
+                    <span>{Math.abs(entry.rankChange)}</span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Avatar */}
