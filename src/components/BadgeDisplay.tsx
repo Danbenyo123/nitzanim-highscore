@@ -37,11 +37,11 @@ export function BadgeDisplay({ badges }: BadgeDisplayProps) {
           {/* Tooltip */}
           {openTooltip === badge.id && (
             <div
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 border border-[var(--neon-cyan)] rounded text-xs text-white whitespace-nowrap z-50"
+              className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 max-w-[90vw] text-center sm:absolute sm:bottom-full sm:top-auto sm:translate-y-0 sm:mb-2 sm:max-w-none sm:whitespace-nowrap px-3 py-2 border border-[var(--neon-cyan)] rounded text-xs text-white z-50"
               style={{ backgroundColor: '#000000ff', boxShadow: '0 0 10px #00fff5' }}
             >
               {badge.description}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[var(--neon-cyan)]"></div>
+              <div className="hidden sm:block absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[var(--neon-cyan)]"></div>
             </div>
           )}
         </div>
