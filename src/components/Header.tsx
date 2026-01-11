@@ -34,7 +34,7 @@ export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProp
 
       {/* Banner Image */}
 
-      <img className="max-w-xs" src="../../public/avatars/amit-ashdod.png" alt="Nitzanim Team" />
+      <img className="max-w-xs" src="/avatars/amit-ashdod.png" alt="Nitzanim Team" />
 
       {/* Decorative line */}
       <div className="flex items-center justify-center gap-4 mb-6">
