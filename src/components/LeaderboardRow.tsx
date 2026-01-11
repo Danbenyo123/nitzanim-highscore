@@ -122,11 +122,11 @@ export function LeaderboardRow({ entry, index, pointsToNextRank, isWeeklyView }:
           </div>
 
           {/* Student Name */}
-          <div className="flex-1 min-w-0 text-center">
-            <h3 className="rtl-text text-lg sm:text-2xl font-semibold text-white truncate">
+          <div className="flex-1 min-w-0 text-right sm:text-center" dir="rtl">
+            <h3 className="text-lg sm:text-2xl font-semibold text-white truncate">
               {entry.name}
             </h3>
-            <div className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
+            <div className="flex items-center justify-end sm:justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
               <span>{entry.exerciseCount} exercises</span>
               {entry.currentStreak > 0 && (
                 <span className="flex items-center gap-1">
