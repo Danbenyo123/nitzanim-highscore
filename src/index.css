@@ -407,11 +407,15 @@ body {
   background: rgba(0, 255, 245, 0.2);
   border-color: var(--neon-cyan);
   box-shadow: 0 0 5px var(--neon-cyan);
+  color: white;
 }
-
+.badge.not-earned {
+background: rgba(7, 81, 78, 0.2);
+}
 /* Demo mode banner */
 .demo-banner {
   background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(191, 0, 255, 0.2));
   border: 1px solid var(--neon-magenta);
   animation: pulse-neon 2s infinite;
 }
+

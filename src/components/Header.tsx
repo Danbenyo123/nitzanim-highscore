@@ -16,7 +16,7 @@ export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProp
   };
 
   return (
-    <header className="text-center mb-8">
+    <header className="flex flex-col gap-2 items-center text-center mb-8">
       {/* Demo mode banner */}
       {isDemo && (
         <div className="demo-banner rounded-lg p-3 mb-6 text-center">
@@ -32,10 +32,9 @@ export function Header({ lastUpdated, isLoading, isDemo, onRefresh }: HeaderProp
         {config.title}
       </h1>
 
-      {/* Subtitle */}
-      <p className="text-lg sm:text-xl text-gray-400 rtl-text mb-4 font-bold">
-        {config.subtitle}
-      </p>
+      {/* Banner Image */}
+
+      <img className="max-w-xs" src="../../public/avatars/amit-ashdod.png" alt="Nitzanim Team" />
 
       {/* Decorative line */}
       <div className="flex items-center justify-center gap-4 mb-6">
