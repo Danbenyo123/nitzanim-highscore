@@ -105,6 +105,17 @@ export function useLeaderboard(): UseLeaderboardResult {
     loadData();
   }, [loadData]);
 
+  // Refresh when page is restored from back-forward cache
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        loadData();
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
+  }, [loadData]);
+
   // Auto-refresh
   useEffect(() => {
     if (config.autoRefreshInterval > 0) {
