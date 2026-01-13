@@ -13,8 +13,14 @@ export async function fetchLeaderboardData(): Promise<ExerciseEntry[]> {
   }
 
   // Add timestamp to bust Google Sheets server-side cache
-  const cacheBustUrl = `${url}&_t=${Date.now()}`;
-  const response = await fetch(cacheBustUrl, { cache: 'no-store' });
+  const cacheBustUrl = `${url}&_t=${Date.now()}&nocache=${Math.random()}`;
+  const response = await fetch(cacheBustUrl, {
+    cache: 'no-store',
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+    },
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
