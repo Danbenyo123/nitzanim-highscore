@@ -12,7 +12,7 @@ export async function fetchLeaderboardData(): Promise<ExerciseEntry[]> {
     throw new Error('Please configure your Google Sheet URL in src/config.ts');
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: 'no-store' });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
