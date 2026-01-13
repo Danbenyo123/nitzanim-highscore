@@ -375,14 +375,7 @@ export function createLeaderboard(stats: StudentStats[]): LeaderboardEntry[] {
     return a.name.localeCompare(b.name);
   });
 
-  // Top 3 keep their score-based order
-  const top3 = sorted.slice(0, 3);
-  // Rest sorted alphabetically by name
-  const rest = sorted.slice(3).sort((a, b) => a.name.localeCompare(b.name, 'he'));
-
-  const combined = [...top3, ...rest];
-
-  return combined.map((student, index) => ({
+  return sorted.map((student, index) => ({
     ...student,
     rank: index + 1,
   }));
