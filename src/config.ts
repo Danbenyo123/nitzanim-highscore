@@ -83,11 +83,11 @@ export const config = {
 
     /** Bonus points awarded for each badge */
     bonusPoints: {
-      'streak-master': 50,   // 🔥 7+ day streak
-      'hard-mode': 100,      // 💀 3+ difficulty-5 exercises (rewards quality)
-      'speed-demon': 30,     // ⚡ 5+ exercises in one day
-      'rising-star': 60,     // 📈 200+ points this week
-      'consistent': 70,      // 🎯 Submitted every day this week
+      'streak-master': 150,  // 🔥 7+ day streak
+      'hard-mode': 250,      // 💀 3+ difficulty-5 exercises (rewards quality)
+      'speed-demon': 100,    // ⚡ 5+ exercises in one day
+      'rising-star': 175,    // 📈 200+ points this week
+      'consistent': 200,     // 🎯 Submitted every day this week
     } as Record<string, number>,
   },
 
