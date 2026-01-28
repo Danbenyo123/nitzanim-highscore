@@ -192,13 +192,18 @@ function formatDate(date: Date): string {
 }
 
 /**
- * Get start of current week (Wednesday)
+ * Get start of current week (Wednesday at 20:00)
  */
 function getWeekStart(): Date {
   const now = new Date();
   const day = now.getDay();
+  const hour = now.getHours();
   // Calculate days since last Wednesday (Wednesday = 3)
-  const daysSinceWednesday = (day - 3 + 7) % 7;
+  let daysSinceWednesday = (day - 3 + 7) % 7;
+  // Week resets on Wednesday at 20:00, not midnight
+  if (daysSinceWednesday === 0 && hour < 20) {
+    daysSinceWednesday = 7; // Still in previous week
+  }
   const weekStart = new Date(now);
   weekStart.setDate(now.getDate() - daysSinceWednesday);
   weekStart.setHours(0, 0, 0, 0);
